@@ -3,6 +3,27 @@ const expect = require('chai').expect;
 
 //BDD
 describe('suite 1', () => {
+    afterEach(() => {
+        console.log('afterEach');
+    });
+    beforeEach(() => {
+        console.log('beforeEach');
+    });
+    after(() => {
+        console.log('after');
+    });
+    before(() => {
+        console.log('before');
+    })
+    it('add(2, 3 should return 5', () => {
+        console.log('it');
+    });
+    it('two', () => {
+        console.log('it two');
+    });
+})
+
+describe('suite 1', () => {
     it('add(2, 3) should return 5', () => {
         expect(add(2, 3)).to.be.equal(5);
     })
