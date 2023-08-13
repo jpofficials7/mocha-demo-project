@@ -17,7 +17,7 @@ context('suite 2', () => {
 //TDD
 const { suite, test } = require('mocha');
 
-suite('suite 2', () => {
+suite('suite 3', () => {
     test('add(3, 3) should return 6', () => {
         expect(add(3, 3)).to.be.equal(6);
     })
