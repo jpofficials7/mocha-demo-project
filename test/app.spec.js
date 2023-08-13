@@ -23,6 +23,27 @@ describe('suite 1', () => {
     });
 })
 
+describe('suite 2', () => {
+    suiteSetup(() => {
+        console.log('suiteSetup');
+    });
+    suiteTeardown(() => {
+        console.log('suiteTeardown');
+    });
+    setup(() => {
+        console.log('setup');
+    });
+    teardown(() => {
+        console.log('teardown');
+    })
+    test('add(2, 3 should return 5', () => {
+        console.log('it');
+    });
+    test('two', () => {
+        console.log('it two');
+    });
+})
+
 describe('suite 1', () => {
     it('add(2, 3) should return 5', () => {
         expect(add(2, 3)).to.be.equal(5);
