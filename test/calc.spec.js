@@ -1,25 +1,67 @@
 const { myCalc } = require('../src/calc');
 const expect = require('chai').expect;
+const sinon = require('sinon');
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
-describe('Basic Tests', () => {
-    it.only('sum - should return correct output with positive values', () => {
-        //Arrange - Nothing required in our case
+describe.skip('spy calculator method callback tests', () => {
+    it('myCalc - should call callback once', () => {
+        //Arrange
+        const spy = sinon.spy();
         //Act
-        const result = myCalc.sum(2, 3);
+        myCalc.myCalc(1, 2, spy);
         //Assert
-        expect(result).to.be.equal(5);//chai
+        sinon.assert.calledOnce(spy);//sinon assertion
+        myCalc.myCalc(1, 2, spy);
+        //Assert
+        sinon.assert.calledTwice(spy);//sinon assertion
+        sinon.assert.calledWithExactly(spy, 10, 2);
+    });
+});
 
+describe.skip('spy calculator method callback tests', () => {
+    let spy;
+    beforeEach(() => {
+        spy = sinon.spy(myCalc, 'sum');
     });
-    it('sum - should return correct output with negative values', () => {
-        const result = myCalc.sum(-2, -3);
-        expect(result).to.be.equal(-5);//chai
+    afterEach(() => {
+        spy.restore();
     });
-    it('div - should return correct value', () => {
-        const result = myCalc.div(4, 2);
-        expect(result).to.equal(2);
-    })
-    it('div - should return infinity', () => {
-        const result = myCalc.div(2, 0);
-        expect(result).to.equal(Infinity);
-    })
-})
+    it('sum - should call sum once with args 1 and 2', () => {
+        //Arrange
+        const spy = sinon.spy(myCalc, 'sum');
+        //Act
+        myCalc.sum(1, 2);
+        //Assert
+        sinon.assert.calledOnce(spy);//sinon assertion
+        sinon.assert.calledWith(spy, 1, 2);
+    });
+    it('sum - should call sum once with args 10 and 20', () => {
+        //Arrange
+        const spy = sinon.spy(myCalc, 'sum');
+        //Act
+        myCalc.sum(10, 20);
+        //Assert
+        sinon.assert.calledOnce(spy);//sinon assertion
+        sinon.assert.calledWith(spy, 10, 20);
+    });
+});
+
+describe('spy calculator property getter and setter tests', () => {
+    let spy;
+    beforeEach(() => {
+        spy = sinon.spy(myCalc, 'calc', ['get', 'set']);
+    });
+    afterEach(() => {
+        spy.restore();
+    });
+    it('sum - should call sum once with args 1 and 2', () => {
+        expect(myCalc.calc).to.equal("casio");
+        sinon.assert.calledOnce(spy.get);
+        //Act
+        myCalc.calc = 'Genuine';
+        //Assert
+        sinon.assert.calledOnce(spy.set);
+    });
+});

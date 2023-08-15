@@ -1,5 +1,16 @@
 class Calculator {
-
+    constructor(name) {
+        this.property = name;
+    }
+    get calc(){
+        return this.property;
+    }
+    set calc(name){
+        this.property = name;
+    }
+    myCalc(a,b,callback){
+        callback(a,b);
+    }
     sum(a, b) {
         return a + b;
     }
